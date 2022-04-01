@@ -1,0 +1,26 @@
+service: ts-service
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-northeast-2
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+
+functions:
+  apiService:
+    handler: src/apiLambda.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
+  errorChecker:
+    handler: src/errorCheckLambda.handler
+
+custom:
+  bundle:
+    tsConfig: 'tsconfig.json'
