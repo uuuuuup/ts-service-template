@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "ts-node-dev --respawn --project tsconfig.json -r tsconfig-paths/register src/index.ts",
-    "serve:built": "TS_NODE_BASEURL=./build node -r tsconfig-paths/register build/src/index.js",
-    "build": "rimraf ./build && tsc -p ."
+    "serve:dev": "nodemon -L -e ts,js --exec 'ts-node' --transpile-only --project tsconfig.json -r tsconfig-paths/register src/index.ts",
+    "serve:build": "TS_NODE_BASEURL=./build node -r tsconfig-paths/register build/src/index.js",
+    "build:offline": "rimraf ./build && tsc -p tsconfig.json",
+    "build:serverless": "rimraf ./build && tsc -p tsconfig-serverless.json"
   },
   "keywords": [],
   "author": "",
@@ -26,8 +27,9 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
-    "ts-node-dev": "^1.1.8",
+    "ts-node": "^10.7.0",
     "tsconfig-paths": "^3.14.1",
     "typescript-json-schema": "^0.53.0"
   }
